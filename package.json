@@ -2,7 +2,7 @@
   "name": "text-translator",
   "displayName": "Text Translator & Enhancer",
   "description": "Detects quoted strings and offers translation to other languages or text enhancement/rephrasing",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "publisher": "apertacodex",
   "license": "MIT",
   "repository": {
