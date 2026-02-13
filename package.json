@@ -1,0 +1,173 @@
+{
+  "name": "text-translator",
+  "displayName": "Text Translator & Enhancer",
+  "description": "Detects quoted strings and offers translation to other languages or text enhancement/rephrasing",
+  "version": "0.0.1",
+  "publisher": "apertacodex",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apertacodex/text-translator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/apertacodex/text-translator/issues"
+  },
+  "homepage": "https://github.com/apertacodex/text-translator#readme",
+  "engines": {
+    "vscode": "^1.108.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning"
+  ],
+  "keywords": [
+    "translation",
+    "text",
+    "enhancement",
+    "rephrase",
+    "string",
+    "language"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "myext.translateText",
+        "title": "Translate Text",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "myext.enhanceText",
+        "title": "Enhance/Rephrase Text",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "myext.detectStrings",
+        "title": "Detect All Strings",
+        "icon": "$(search)"
+      },
+      {
+        "command": "myext.openTranslationPanel",
+        "title": "Open Translation Panel",
+        "icon": "$(symbol-string)"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "textTranslatorView",
+          "name": "Text Translator",
+          "when": "textTranslator.enabled"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "myext.translateText",
+          "when": "editorHasSelection",
+          "group": "1_modification@1"
+        },
+        {
+          "command": "myext.enhanceText",
+          "when": "editorHasSelection",
+          "group": "1_modification@2"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "myext.detectStrings",
+          "when": "view == textTranslatorView",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "myext.translateText",
+          "when": "view == textTranslatorView && viewItem == stringItem",
+          "group": "inline"
+        },
+        {
+          "command": "myext.enhanceText",
+          "when": "view == textTranslatorView && viewItem == stringItem",
+          "group": "inline"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "myext.translateText",
+        "key": "ctrl+shift+t",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "myext.enhanceText",
+        "key": "ctrl+shift+e",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "myext.detectStrings",
+        "key": "ctrl+shift+d",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Text Translator",
+      "properties": {
+        "textTranslator.targetLanguages": {
+          "type": "array",
+          "default": [
+            "Spanish",
+            "French",
+            "German",
+            "Italian",
+            "Portuguese",
+            "Russian",
+            "Chinese",
+            "Japanese"
+          ],
+          "description": "List of target languages for translation"
+        },
+        "textTranslator.enhancementTypes": {
+          "type": "array",
+          "default": [
+            "Formal",
+            "Casual",
+            "Concise",
+            "Detailed",
+            "Professional",
+            "Creative"
+          ],
+          "description": "Types of text enhancement options"
+        },
+        "textTranslator.autoDetectStrings": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically detect strings when opening files"
+        },
+        "textTranslator.showInlineActions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show translation and enhancement actions inline with detected strings"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.108.1",
+    "@types/node": "^25.0.9",
+    "typescript": "^5.9.3",
+    "ovsx": "^0.10.8"
+  },
+  "dependencies": {}
+}
